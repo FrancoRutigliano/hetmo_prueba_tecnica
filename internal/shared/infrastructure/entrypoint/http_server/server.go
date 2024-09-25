@@ -4,15 +4,18 @@ import (
 	"hetmo_prueba_tecnica/config"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/jmoiron/sqlx"
 )
 
 type Server struct {
 	config *config.Config
+	db     *sqlx.DB
 }
 
-func NewServer(config *config.Config) *Server {
+func NewServer(config *config.Config, db *sqlx.DB) *Server {
 	return &Server{
 		config: config,
+		db:     db,
 	}
 }
 
