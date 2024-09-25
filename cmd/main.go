@@ -1,22 +1,19 @@
 package main
 
 import (
+	"hetmo_prueba_tecnica/config"
+	server "hetmo_prueba_tecnica/internal/shared/infrastructure/entrypoint/http_server"
 	"log"
-	"os"
-
-	"github.com/gofiber/fiber/v2"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	if err := godotenv.Load(".env"); err != nil {
-		log.Fatal("err to load .env variables")
+	config, err := config.SetUp()
+	if err != nil {
+		log.Fatal("error loading .env --> ", err)
 	}
-	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("hello world")
-	})
-
-	app.Listen(os.Getenv("PORT"))
+	s := server.NewServer(config)
+	if err = s.Run(); err != nil {
+		log.Fatal("error to inicialize the app --> ", err)
+	}
 }
