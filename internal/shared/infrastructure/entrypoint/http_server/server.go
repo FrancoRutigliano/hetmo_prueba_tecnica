@@ -2,6 +2,7 @@ package server
 
 import (
 	"hetmo_prueba_tecnica/config"
+	"hetmo_prueba_tecnica/internal/shared/infrastructure/entrypoint/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
@@ -22,9 +23,7 @@ func NewServer(config *config.Config, db *sqlx.DB) *Server {
 func (s *Server) Run() error {
 	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello world")
-	})
+	routes.Init(app)
 
 	return app.Listen(s.config.Port)
 }
