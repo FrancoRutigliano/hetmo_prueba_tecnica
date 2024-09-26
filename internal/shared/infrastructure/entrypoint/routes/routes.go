@@ -1,6 +1,7 @@
 package routes
 
 import (
+	authRoutes "hetmo_prueba_tecnica/internal/Auth/infrastructure/routes"
 	userRoutes "hetmo_prueba_tecnica/internal/User/infrastructure/routes"
 
 	"github.com/gofiber/fiber/v2"
@@ -8,6 +9,6 @@ import (
 
 func Init(a *fiber.App) {
 	api := a.Group("api/v1/")
-
+	authRoutes.Init(api)
 	userRoutes.Init(api)
 }
