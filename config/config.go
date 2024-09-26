@@ -13,6 +13,7 @@ type Config struct {
 	Postgre_Password string
 	Postgre_Db       string
 	Postgre_Host     string
+	Route_Migrate    string
 }
 
 func SetUp() (*Config, error) {
@@ -46,11 +47,17 @@ func SetUp() (*Config, error) {
 		return nil, errors.New("host is empty")
 	}
 
+	migrate := os.Getenv("ROUTE_MIGRATE")
+	if migrate == "" {
+		return nil, errors.New("route migrate is empty")
+	}
+
 	return &Config{
 		Port:             port,
 		Postgre_User:     user,
 		Postgre_Password: pass,
 		Postgre_Db:       db,
 		Postgre_Host:     host,
+		Route_Migrate:    migrate,
 	}, nil
 }
