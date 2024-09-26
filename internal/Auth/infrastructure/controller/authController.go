@@ -1,7 +1,9 @@
 package authController
 
 import (
+	authDomain "hetmo_prueba_tecnica/internal/Auth/pkg/domain"
 	authUseCase "hetmo_prueba_tecnica/internal/Auth/pkg/useCases"
+	"hetmo_prueba_tecnica/pkg/utils"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -17,10 +19,16 @@ func NewAuthController(auth *authUseCase.AuthUseCaseImpl) *authController {
 }
 
 func (a *authController) Login(c *fiber.Ctx) error {
-	response, err := a.auth.Login()
-	if err != nil {
-		return c.Status(500).JSON(fiber.Map{"error": "internal"})
+	// sacar el body de la request
+	var payload authDomain.AuthLoginRequest
+
+	if err := c.BodyParser(&payload); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request payload"})
 	}
 
-	return c.Status(200).JSON(fiber.Map{"response": response})
+	if err := utils.Validate.Struct(&payload); err != nil {
+		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{"error": "Invalid entity"})
+	}
+
+	return c.Status(fiber.StatusAccepted).JSON(fiber.Map{"data": "todo ok", "details": "true"})
 }
