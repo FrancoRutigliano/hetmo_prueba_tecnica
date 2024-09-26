@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS user_event;
+
+DROP TABLE IF EXISTS events;
+
+DROP TABLE IF EXISTS users;
