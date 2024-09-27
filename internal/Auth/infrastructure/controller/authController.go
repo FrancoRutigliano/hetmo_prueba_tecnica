@@ -30,5 +30,12 @@ func (a *authController) Login(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusUnprocessableEntity).JSON(fiber.Map{"error": "Invalid entity"})
 	}
 
-	return c.Status(fiber.StatusAccepted).JSON(fiber.Map{"data": "todo ok", "details": "true"})
+	a.auth.Login(payload)
+
+	return c.Status(fiber.StatusAccepted).JSON(fiber.Map{"response": "todo ok", "details": "true"})
+}
+
+func (a *authController) Register(c *fiber.Ctx) error {
+
+	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"response": "user", "details": "true"})
 }

@@ -10,5 +10,6 @@ import (
 func Init(r fiber.Router) {
 	authImpl := authUseCase.NewAuthUseCase()
 	controller := authController.NewAuthController(authImpl)
+	r.Post("/register", controller.Register)
 	r.Post("login", controller.Login)
 }
