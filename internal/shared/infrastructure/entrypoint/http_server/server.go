@@ -2,21 +2,18 @@ package server
 
 import (
 	"hetmo_prueba_tecnica/config"
-	"hetmo_prueba_tecnica/internal/shared/infrastructure/entrypoint/routes"
+	"hetmo_prueba_tecnica/internal/shared/infrastructure/entrypoint/http_server/routes"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/jmoiron/sqlx"
 )
 
 type Server struct {
 	config *config.Config
-	db     *sqlx.DB
 }
 
-func NewServer(config *config.Config, db *sqlx.DB) *Server {
+func NewServer(config *config.Config) *Server {
 	return &Server{
 		config: config,
-		db:     db,
 	}
 }
 

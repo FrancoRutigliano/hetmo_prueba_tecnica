@@ -1,22 +1,29 @@
 package authUseCase
 
-import authDomain "hetmo_prueba_tecnica/internal/Auth/pkg/domain"
+import (
+	infraAuthRepository "hetmo_prueba_tecnica/internal/Auth/infrastructure/repository"
+	usecaseimpl "hetmo_prueba_tecnica/internal/Auth/pkg/useCases/useCaseImpl"
+	"hetmo_prueba_tecnica/internal/shared/infrastructure/data"
+	"log"
+)
 
-type AuthUseCase interface {
-	Login(authDomain.AuthLoginRequest) (string, error)
+type AuthImpl struct {
+	AuthCase usecaseimpl.IAuthUseCase
 }
 
-type AuthUseCaseImpl struct {
-}
+func (a *AuthImpl) New() {
+	var repository infraAuthRepository.SqlxAuthRepository
 
-func NewAuthUseCase() *AuthUseCaseImpl {
-	return &AuthUseCaseImpl{}
-}
+	repository.New()
 
-func (a *AuthUseCaseImpl) Login(payload authDomain.AuthLoginRequest) (string, error) {
-	return "Login", nil
-}
+	db, err := data.GetConnection()
+	if err != nil {
+		log.Println("error to connect db  --> ", err)
+	}
 
-func (a *AuthUseCaseImpl) Register(payload authDomain.AuthRegisterRequest) {
+	a.AuthCase = &usecaseimpl.Auth{
+		Repository: repository,
+		Db:         db,
+	}
 
 }
