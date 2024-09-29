@@ -7,6 +7,12 @@ type AuthLoginRequest struct {
 	Password string `json:"password" validate:"required,min=6"`
 }
 
+type AuthLoginResponse struct {
+	Id       string `json:"id"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 type AuthRegisterPayload struct {
 	Name     string `json:"name" validate:"required"`
 	Email    string `json:"email" validate:"required,email"`

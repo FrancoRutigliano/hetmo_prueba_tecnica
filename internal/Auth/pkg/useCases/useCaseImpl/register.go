@@ -1,26 +1,26 @@
 package usecaseimpl
 
 import (
-	"errors"
-	"fmt"
 	authDto "hetmo_prueba_tecnica/internal/Auth/pkg/domain/dto"
 	utilsAuth "hetmo_prueba_tecnica/pkg/auth"
+	httpresponse "hetmo_prueba_tecnica/pkg/httpResponse"
+	"net/http"
 	"time"
 
 	"github.com/google/uuid"
 )
 
-func (a *Auth) Register(payload authDto.AuthRegisterPayload) (string, error) {
+func (a *Auth) Register(payload authDto.AuthRegisterPayload) httpresponse.ApiResponse {
 	err := a.Repository.Impl.FindByEmail(payload.Email, a.Db)
 	if err != nil {
-		return "", errors.New("email already exist")
+		return *httpresponse.NewApiError(http.StatusBadRequest, "email already exists")
 	}
 
 	userID := uuid.New().String()
 
 	hashPass, err := utilsAuth.HashPassword(payload.Password)
 	if err != nil {
-		return "", errors.New("error to hash password")
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong")
 	}
 
 	var dto = authDto.AuthRegisterRequest{
@@ -35,8 +35,8 @@ func (a *Auth) Register(payload authDto.AuthRegisterPayload) (string, error) {
 
 	err = a.Repository.Impl.RegisterUser(dto, a.Db)
 	if err != nil {
-		return "", fmt.Errorf("error to register user -> %s ", err.Error())
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong")
 	}
 
-	return "user created", nil
+	return *httpresponse.NewApiError(http.StatusCreated, "user created succesfully")
 }
