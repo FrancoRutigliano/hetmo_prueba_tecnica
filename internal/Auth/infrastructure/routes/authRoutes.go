@@ -11,5 +11,5 @@ func Init(r fiber.Router) {
 	controller.NewAuthController()
 
 	r.Post("/register", controller.Register)
-	r.Post("login", controller.Login)
+	r.Post("/login", controller.Login)
 }

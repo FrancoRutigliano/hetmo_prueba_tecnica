@@ -34,7 +34,7 @@ func (a *Auth) Login(c *fiber.Ctx) error {
 }
 
 func (a *Auth) Register(c *fiber.Ctx) error {
-	var payload authDto.AuthRegisterRequest
+	var payload authDto.AuthRegisterPayload
 
 	if err := c.BodyParser(&payload); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Invalid request payload", "details": "false"})
@@ -46,7 +46,7 @@ func (a *Auth) Register(c *fiber.Ctx) error {
 
 	response, err := a.handler.AuthCase.Register(payload)
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"response": err, err.Error(): "false"})
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"response": err.Error(), "details": "false"})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{"response": response, "details": "true"})
