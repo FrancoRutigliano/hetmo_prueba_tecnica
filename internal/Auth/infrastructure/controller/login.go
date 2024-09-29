@@ -21,8 +21,8 @@ func (a *Auth) Login(c *fiber.Ctx) error {
 
 	response, err := a.handler.AuthCase.Login(payload)
 	if err != nil {
-		c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": response, "details": "false"})
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": err.Error(), "details": "false"})
 	}
 
-	return c.Status(fiber.StatusAccepted).JSON(fiber.Map{"message ": "todo ok", "details": "true"})
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{"message ": response, "details": "true"})
 }

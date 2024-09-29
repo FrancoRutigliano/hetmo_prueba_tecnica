@@ -9,4 +9,5 @@ import (
 type Repository interface {
 	FindByEmail(string, *sqlx.DB) error
 	RegisterUser(authDto.AuthRegisterRequest, *sqlx.DB) error
+	GetUser(authDto.AuthLoginRequest, *sqlx.DB) (authDto.AuthLoginRequest, error)
 }
