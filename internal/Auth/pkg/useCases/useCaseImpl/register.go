@@ -1,4 +1,4 @@
-package usecaseimpl
+package authUsecaseimpl
 
 import (
 	authDto "hetmo_prueba_tecnica/internal/Auth/pkg/domain/dto"
