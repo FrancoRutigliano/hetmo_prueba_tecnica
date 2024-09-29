@@ -45,16 +45,16 @@ func (s *ImplrepositoryAuth) RegisterUser(payload authDto.AuthRegisterRequest, d
 	return nil
 }
 
-func (s *ImplrepositoryAuth) GetUser(payload authDto.AuthLoginRequest, db *sqlx.DB) (authDto.AuthLoginRequest, error) {
-	query := `SELECT u.email, u.password FROM "public".users AS u WHERE email=$1 LIMIT 1;`
+func (s *ImplrepositoryAuth) GetUser(payload authDto.AuthLoginRequest, db *sqlx.DB) (authDto.AuthLoginResponse, error) {
+	query := `SELECT u.name, u.email, u.password, u.role FROM "public".users AS u WHERE email=$1 LIMIT 1;`
 
-	var user authDto.AuthLoginRequest
+	var user authDto.AuthLoginResponse
 
 	if err := db.Get(&user, query, payload.Email); err != nil {
 		if err == sql.ErrNoRows {
-			return authDto.AuthLoginRequest{}, fmt.Errorf("user not found for email: %s", payload.Email)
+			return authDto.AuthLoginResponse{}, fmt.Errorf("user not found for email: %s", payload.Email)
 		}
-		return authDto.AuthLoginRequest{}, fmt.Errorf("error executing query: %v", err)
+		return authDto.AuthLoginResponse{}, fmt.Errorf("error executing query: %v", err)
 	}
 	return user, nil
 }

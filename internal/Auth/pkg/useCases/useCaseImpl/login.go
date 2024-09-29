@@ -16,7 +16,6 @@ func (a *Auth) Login(payload authDto.AuthLoginRequest) (string, error) {
 	}
 
 	log.Println(user)
-	log.Println("payload --> ", payload)
 
 	if !utilsAuth.ComparePasswords(user.Password, []byte(payload.Password)) {
 		return "", errors.New("incorrect password")
