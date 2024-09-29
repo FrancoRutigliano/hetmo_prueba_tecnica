@@ -8,10 +8,9 @@ type AuthLoginRequest struct {
 }
 
 type AuthLoginResponse struct {
-	Name     string `json:"name"`
+	Id       string `json:"id"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	Role     bool   `json:"role"`
 }
 
 type AuthRegisterPayload struct {

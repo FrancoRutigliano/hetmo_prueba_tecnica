@@ -5,7 +5,9 @@ import (
 	"fmt"
 	authDto "hetmo_prueba_tecnica/internal/Auth/pkg/domain/dto"
 	utilsAuth "hetmo_prueba_tecnica/pkg/auth"
+	authJwt "hetmo_prueba_tecnica/pkg/jwt"
 	"log"
+	"os"
 )
 
 func (a *Auth) Login(payload authDto.AuthLoginRequest) (string, error) {
@@ -21,5 +23,12 @@ func (a *Auth) Login(payload authDto.AuthLoginRequest) (string, error) {
 		return "", errors.New("incorrect password")
 	}
 
-	return "usuario logeado con exito", nil
+	secret := []byte(os.Getenv("SECRET_JWT"))
+
+	token, err := authJwt.Create(secret, user.Id)
+	if err != nil {
+		return "", fmt.Errorf("error generating jwt --> %s", err.Error())
+	}
+
+	return token, nil
 }
