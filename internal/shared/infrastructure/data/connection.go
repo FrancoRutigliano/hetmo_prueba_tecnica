@@ -1,17 +1,15 @@
 package data
 
 import (
-	"fmt"
-	"hetmo_prueba_tecnica/config"
+	"os"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
-func GetConnection(config *config.Config) (*sqlx.DB, error) {
-	connStr := fmt.Sprintf("user=%s dbname=%s host=%s password=%s sslmode=disable", config.Postgre_User, config.Postgre_Db, config.Postgre_Host, config.Postgre_Password)
+func GetConnection() (*sqlx.DB, error) {
 
-	db, err := sqlx.Connect("postgres", connStr)
+	db, err := sqlx.Connect("postgres", os.Getenv("CONNECTION"))
 	if err != nil {
 		return nil, err
 	}
