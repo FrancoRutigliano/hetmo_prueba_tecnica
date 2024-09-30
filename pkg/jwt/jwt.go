@@ -6,6 +6,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
 )
 
@@ -60,4 +61,35 @@ func GetRole(token *jwt.Token) (string, error) {
 	role := strconv.FormatBool(roleBool)
 
 	return role, nil
+}
+
+func GetID(c *fiber.Ctx) (string, error) {
+	// Obtener el token del header "Authorization"
+	token := c.Get("Authorization")
+	if token == "" {
+		return "", fmt.Errorf("no token provided")
+	}
+
+	// Quitar el prefijo "Bearer" si existe
+	tokenStr := strings.TrimPrefix(token, "Bearer ")
+
+	// Parsear el token sin validarlo nuevamente
+	parsedToken, _, err := new(jwt.Parser).ParseUnverified(tokenStr, jwt.MapClaims{})
+	if err != nil {
+		return "", fmt.Errorf("invalid token format: %v", err)
+	}
+
+	// Extraer las claims del token
+	claims, ok := parsedToken.Claims.(jwt.MapClaims)
+	if !ok {
+		return "", fmt.Errorf("invalid claims in token")
+	}
+
+	// Obtener el "userId" de las claims
+	userId, ok := claims["userId"].(string)
+	if !ok {
+		return "", fmt.Errorf("userId not found in token claims")
+	}
+
+	return userId, nil
 }
