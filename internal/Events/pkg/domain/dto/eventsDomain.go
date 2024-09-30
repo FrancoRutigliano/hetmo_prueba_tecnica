@@ -4,13 +4,16 @@ import "time"
 
 // EventCreateDTO es el DTO que se utiliza para crear un nuevo evento.
 type EventCreateDTO struct {
+	Id               string    `json:"id"`
 	Title            string    `json:"title" validate:"required,max=100"`
 	ShortDescription string    `json:"short_description" validate:"max=255"`
 	LongDescription  string    `json:"long_description"`
 	Date             time.Time `json:"date" validate:"required"`
-	Organizer        string    `json:"organizer" validate:"required"`
+	Organizer        string    `json:"organizer"`
 	Location         string    `json:"location" validate:"required,max=100"`
 	IsPublished      bool      `json:"is_published"`
+	CreatedAt        time.Time `json:"created_at"`
+	UpdatedAt        time.Time `json:"updated_at"`
 }
 
 // EventUpdateDTO es el DTO que se utiliza para actualizar un evento existente.
@@ -19,9 +22,10 @@ type EventUpdateDTO struct {
 	ShortDescription string    `json:"short_description,omitempty" validate:"max=255"`
 	LongDescription  string    `json:"long_description,omitempty"`
 	Date             time.Time `json:"date,omitempty"`
-	Organizer        string    `json:"organizer,omitempty"`
+	Organizer        string    `json:"organizer"`
 	Location         string    `json:"location,omitempty" validate:"max=100"`
 	IsPublished      bool      `json:"is_published,omitempty"`
+	UpdatedAt        time.Time `json:"updated_at"`
 }
 
 // EventResponseDTO es el DTO que se utiliza para devolver la información de un evento específico.

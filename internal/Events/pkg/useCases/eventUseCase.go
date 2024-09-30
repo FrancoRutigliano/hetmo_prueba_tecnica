@@ -3,6 +3,7 @@ package eventsUseCase
 import (
 	infraEventsRepository "hetmo_prueba_tecnica/internal/Events/infrastructure/repository"
 	eventsUseCaseImpl "hetmo_prueba_tecnica/internal/Events/pkg/useCases/useCaseImpl"
+	infraUserRepository "hetmo_prueba_tecnica/internal/User/infrastructure/repository"
 	"hetmo_prueba_tecnica/internal/shared/infrastructure/data"
 	"log"
 )
@@ -12,18 +13,19 @@ type EventsImpl struct {
 }
 
 func (a *EventsImpl) New() {
-	var repository infraEventsRepository.SqlxEventsRepository
-
-	repository.New()
-
+	var eventsRepository infraEventsRepository.SqlxEventsRepository
+	eventsRepository.New()
+	var userRepository infraUserRepository.SqlxUserRepository
+	userRepository.New()
 	db, err := data.GetConnection()
 	if err != nil {
 		log.Println("error to connect db  --> ", err)
 	}
 
 	a.EventsCase = &eventsUseCaseImpl.Events{
-		Repository: repository,
-		Db:         db,
+		EventsRepository: eventsRepository,
+		UserRepository:   userRepository,
+		Db:               db,
 	}
 
 }
