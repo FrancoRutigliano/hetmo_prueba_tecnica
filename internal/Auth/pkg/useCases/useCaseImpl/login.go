@@ -22,7 +22,7 @@ func (a *Auth) Login(payload authDto.AuthLoginRequest) httpresponse.ApiResponse 
 
 	secret := []byte(os.Getenv("SECRET_JWT"))
 
-	token, err := authJwt.Create(secret, user.Id)
+	token, err := authJwt.Create(secret, user.Id, user.Role)
 	if err != nil {
 		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong", nil)
 	}

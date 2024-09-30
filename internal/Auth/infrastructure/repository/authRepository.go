@@ -46,7 +46,7 @@ func (s *ImplrepositoryAuth) RegisterUser(payload authDto.AuthRegisterRequest, d
 }
 
 func (s *ImplrepositoryAuth) GetUser(payload authDto.AuthLoginRequest, db *sqlx.DB) (authDto.AuthLoginResponse, error) {
-	query := `SELECT u.id, u.email, u.password FROM "public".users AS u WHERE email=$1 LIMIT 1;`
+	query := `SELECT u.id, u.email, u.password, u.role FROM "public".users AS u WHERE email=$1 LIMIT 1;`
 
 	var user authDto.AuthLoginResponse
 

@@ -4,24 +4,24 @@ import "time"
 
 // EventCreateDTO es el DTO que se utiliza para crear un nuevo evento.
 type EventCreateDTO struct {
-	Title            string    `json:"title" validate:"required,max=100"`    // El título del evento es obligatorio y con longitud máxima de 100 caracteres.
-	ShortDescription string    `json:"short_description" validate:"max=255"` // Descripción corta opcional con longitud máxima de 255 caracteres.
-	LongDescription  string    `json:"long_description"`                     // Descripción larga opcional.
-	Date             time.Time `json:"date" validate:"required"`             // La fecha es obligatoria.
+	Title            string    `json:"title" validate:"required,max=100"`
+	ShortDescription string    `json:"short_description" validate:"max=255"`
+	LongDescription  string    `json:"long_description"`
+	Date             time.Time `json:"date" validate:"required"`
 	Organizer        string    `json:"organizer" validate:"required"`
-	Location         string    `json:"location" validate:"required,max=100"` // La ubicación es obligatoria con longitud máxima de 100 caracteres.
-	IsPublished      bool      `json:"is_published"`                         // Estado del evento (borrador o publicado).
+	Location         string    `json:"location" validate:"required,max=100"`
+	IsPublished      bool      `json:"is_published"`
 }
 
 // EventUpdateDTO es el DTO que se utiliza para actualizar un evento existente.
 type EventUpdateDTO struct {
-	Title            string    `json:"title,omitempty" validate:"max=100"`             // Permite actualizar opcionalmente el título.
-	ShortDescription string    `json:"short_description,omitempty" validate:"max=255"` // Permite actualizar opcionalmente la descripción corta.
-	LongDescription  string    `json:"long_description,omitempty"`                     // Permite actualizar opcionalmente la descripción larga.
-	Date             time.Time `json:"date,omitempty"`                                 // Permite actualizar opcionalmente la fecha.
+	Title            string    `json:"title,omitempty" validate:"max=100"`
+	ShortDescription string    `json:"short_description,omitempty" validate:"max=255"`
+	LongDescription  string    `json:"long_description,omitempty"`
+	Date             time.Time `json:"date,omitempty"`
 	Organizer        string    `json:"organizer,omitempty"`
-	Location         string    `json:"location,omitempty" validate:"max=100"` // Permite actualizar opcionalmente la ubicación.
-	IsPublished      bool      `json:"is_published,omitempty"`                // Permite actualizar opcionalmente el estado.
+	Location         string    `json:"location,omitempty" validate:"max=100"`
+	IsPublished      bool      `json:"is_published,omitempty"`
 }
 
 // EventResponseDTO es el DTO que se utiliza para devolver la información de un evento específico.
