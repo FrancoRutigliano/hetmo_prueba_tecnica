@@ -17,7 +17,7 @@ func (a *Auth) Register(c *fiber.Ctx) error {
 	}
 
 	response = a.handler.AuthCase.Register(payload)
-	if response.StatusCode != http.StatusOK {
+	if response.StatusCode != http.StatusCreated {
 		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
 	}
 	return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "true"})

@@ -1,4 +1,4 @@
-package usecaseimpl
+package authUsecaseimpl
 
 import (
 	infraAuthRepository "hetmo_prueba_tecnica/internal/Auth/infrastructure/repository"

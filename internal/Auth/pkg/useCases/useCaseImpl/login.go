@@ -1,4 +1,4 @@
-package usecaseimpl
+package authUsecaseimpl
 
 import (
 	authDto "hetmo_prueba_tecnica/internal/Auth/pkg/domain/dto"
@@ -13,19 +13,19 @@ func (a *Auth) Login(payload authDto.AuthLoginRequest) httpresponse.ApiResponse 
 
 	user, err := a.Repository.Impl.GetUser(payload, a.Db)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusBadRequest, "email doesn't exists")
+		return *httpresponse.NewApiError(http.StatusBadRequest, "email doesn't exists", nil)
 	}
 
 	if !utilsAuth.ComparePasswords(user.Password, []byte(payload.Password)) {
-		return *httpresponse.NewApiError(http.StatusBadRequest, "incorrect password")
+		return *httpresponse.NewApiError(http.StatusBadRequest, "incorrect password", nil)
 	}
 
 	secret := []byte(os.Getenv("SECRET_JWT"))
 
 	token, err := authJwt.Create(secret, user.Id)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong")
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong", nil)
 	}
 
-	return *httpresponse.NewApiError(http.StatusOK, token)
+	return *httpresponse.NewApiError(http.StatusOK, token, nil)
 }

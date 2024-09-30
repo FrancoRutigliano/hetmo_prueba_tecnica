@@ -2,13 +2,13 @@ package authUseCase
 
 import (
 	infraAuthRepository "hetmo_prueba_tecnica/internal/Auth/infrastructure/repository"
-	usecaseimpl "hetmo_prueba_tecnica/internal/Auth/pkg/useCases/useCaseImpl"
+	authUsecaseimpl "hetmo_prueba_tecnica/internal/Auth/pkg/useCases/useCaseImpl"
 	"hetmo_prueba_tecnica/internal/shared/infrastructure/data"
 	"log"
 )
 
 type AuthImpl struct {
-	AuthCase usecaseimpl.IAuthUseCase
+	AuthCase authUsecaseimpl.IAuthUseCase
 }
 
 func (a *AuthImpl) New() {
@@ -21,7 +21,7 @@ func (a *AuthImpl) New() {
 		log.Println("error to connect db  --> ", err)
 	}
 
-	a.AuthCase = &usecaseimpl.Auth{
+	a.AuthCase = &authUsecaseimpl.Auth{
 		Repository: repository,
 		Db:         db,
 	}
