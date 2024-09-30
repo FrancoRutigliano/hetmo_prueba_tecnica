@@ -13,14 +13,14 @@ import (
 func (a *Auth) Register(payload authDto.AuthRegisterPayload) httpresponse.ApiResponse {
 	err := a.Repository.Impl.FindByEmail(payload.Email, a.Db)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusBadRequest, "email already exists")
+		return *httpresponse.NewApiError(http.StatusBadRequest, "email already exists", nil)
 	}
 
 	userID := uuid.New().String()
 
 	hashPass, err := utilsAuth.HashPassword(payload.Password)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong")
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong", nil)
 	}
 
 	var dto = authDto.AuthRegisterRequest{
@@ -35,8 +35,8 @@ func (a *Auth) Register(payload authDto.AuthRegisterPayload) httpresponse.ApiRes
 
 	err = a.Repository.Impl.RegisterUser(dto, a.Db)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong")
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong", nil)
 	}
 
-	return *httpresponse.NewApiError(http.StatusCreated, "user created succesfully")
+	return *httpresponse.NewApiError(http.StatusCreated, "user created succesfully", nil)
 }

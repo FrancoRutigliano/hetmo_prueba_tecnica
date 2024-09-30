@@ -13,11 +13,11 @@ var Validate = validator.New()
 func ValidPayload(c *fiber.Ctx, payload interface{}) httpresponse.ApiResponse {
 
 	if err := c.BodyParser(payload); err != nil {
-		return *httpresponse.NewApiError(http.StatusBadRequest, "invalid payload request")
+		return *httpresponse.NewApiError(http.StatusBadRequest, "invalid payload request", nil)
 	}
 
 	if err := Validate.Struct(payload); err != nil {
-		return *httpresponse.NewApiError(http.StatusUnprocessableEntity, "invalid entity")
+		return *httpresponse.NewApiError(http.StatusUnprocessableEntity, "invalid entity", nil)
 	}
 
 	return httpresponse.ApiResponse{}
