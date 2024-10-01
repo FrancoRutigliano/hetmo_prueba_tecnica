@@ -16,6 +16,11 @@ type EventCreateDTO struct {
 	UpdatedAt        time.Time `json:"updated_at"`
 }
 
+type GetEventsRequest struct {
+	IsPublished bool
+	Date        time.Time
+}
+
 // EventUpdateDTO es el DTO que se utiliza para actualizar un evento existente.
 type EventUpdateDTO struct {
 	Title            string    `json:"title,omitempty" validate:"max=100"`
@@ -44,9 +49,10 @@ type EventResponseDTO struct {
 
 // EventListDTO es el DTO que se utiliza para listar eventos, incluye información básica.
 type EventListDTO struct {
-	ID          string    `json:"id"`           // ID único del evento.
-	Title       string    `json:"title"`        // Título del evento.
-	Date        time.Time `json:"date"`         // Fecha y hora del evento.
-	Location    string    `json:"location"`     // Ubicación del evento.
-	IsPublished bool      `json:"is_published"` // Indica si el evento está publicado o no.
+	Title            string    `db:"title" json:"title"`
+	ShortDescription string    `db:"short_description" json:"short_description"`
+	Date             time.Time `db:"date" json:"date"`
+	Organizer        string    `db:"organizer" json:"organizer"`
+	Location         string    `db:"location" json:"location"`
+	IsPublished      bool      `db:"is_published" json:"is_published"`
 }

@@ -24,7 +24,6 @@ func (a *EventsImpl) New() {
 
 	a.EventsCase = &eventsUseCaseImpl.Events{
 		EventsRepository: eventsRepository,
-		UserRepository:   userRepository,
 		Db:               db,
 	}
 
