@@ -7,12 +7,12 @@ import (
 	"time"
 )
 
-func (e *Events) UpdateEvent(userId, eventId string, payload eventsDto.EventResponseDTO) httpresponse.ApiResponse {
+func (e *Events) UpdateEvent(userId, eventId string, payload eventsDto.EventResponseDTO, unixTime int64) httpresponse.ApiResponse {
 
-	var dto = eventsDto.EventResponseDTO{
+	var dto = eventsDto.EventResponseDTOUpdate{
 		Title:            payload.Title,
 		ShortDescription: payload.ShortDescription,
-		Date:             payload.Date,
+		Date:             unixTime,
 		Organizer:        userId,
 		Location:         payload.Location,
 		IsPublished:      payload.IsPublished,

@@ -36,7 +36,18 @@ type EventResponseDTO struct {
 	Title            string    `db:"title" json:"title,omitempty" validate:"max=100"`
 	ShortDescription string    `db:"short_description" json:"short_description,omitempty" validate:"max=255"`
 	LongDescription  string    `db:"long_description" json:"long_description,omitempty"`
-	Date             time.Time `db:"date" json:"date,omitempty"`
+	Date             string    `db:"date" json:"date,omitempty"`
+	Organizer        string    `db:"organizer" json:"organizer"`
+	Location         string    `db:"location" json:"location,omitempty" validate:"max=100"`
+	IsPublished      bool      `db:"is_published" json:"is_published,omitempty"`
+	UpdatedAt        time.Time `db:"updated_at" json:"updated_at"`
+}
+
+type EventResponseDTOUpdate struct {
+	Title            string    `db:"title" json:"title,omitempty" validate:"max=100"`
+	ShortDescription string    `db:"short_description" json:"short_description,omitempty" validate:"max=255"`
+	LongDescription  string    `db:"long_description" json:"long_description,omitempty"`
+	Date             int64     `db:"date" json:"date,omitempty"`
 	Organizer        string    `db:"organizer" json:"organizer"`
 	Location         string    `db:"location" json:"location,omitempty" validate:"max=100"`
 	IsPublished      bool      `db:"is_published" json:"is_published,omitempty"`
@@ -45,10 +56,10 @@ type EventResponseDTO struct {
 
 // EventListDTO es el DTO que se utiliza para listar eventos, incluye información básica.
 type EventListDTO struct {
-	Title            string    `db:"title" json:"title"`
-	ShortDescription string    `db:"short_description" json:"short_description"`
-	Date             time.Time `db:"date" json:"date"`
-	Organizer        string    `db:"organizer" json:"organizer"`
-	Location         string    `db:"location" json:"location"`
-	IsPublished      bool      `db:"is_published" json:"is_published"`
+	Title            string `db:"title" json:"title"`
+	ShortDescription string `db:"short_description" json:"short_description"`
+	Date             int64  `db:"date" json:"date"`
+	Organizer        string `db:"organizer" json:"organizer"`
+	Location         string `db:"location" json:"location"`
+	IsPublished      bool   `db:"is_published" json:"is_published"`
 }
