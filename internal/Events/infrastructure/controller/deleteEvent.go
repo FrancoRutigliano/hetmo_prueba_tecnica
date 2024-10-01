@@ -1,7 +1,20 @@
 package eventsController
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"net/http"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func (e *Events) DeleteEvent(c *fiber.Ctx) error {
-	return c.Status(200).JSON(fiber.Map{"message": "gol", "details": "true"})
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": "user id required", "details": "false"})
+	}
+
+	response := e.handler.EventsCase.DeleteEvent(id)
+	if response.StatusCode != http.StatusAccepted {
+		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
+	}
+	return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "data": response.Data, "details": "true"})
 }
