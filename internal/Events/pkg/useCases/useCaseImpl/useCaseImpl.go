@@ -13,7 +13,7 @@ type IEventsUseCase interface {
 	GetEvents(eventsDto.GetEventsRequest) httpresponse.ApiResponse
 	GetEventByID(string) httpresponse.ApiResponse
 	// UpdateEvent(string) httpresponse.ApiResponse // dto
-	// DeleteEvent(string) httpresponse.ApiResponse
+	DeleteEvent(string) httpresponse.ApiResponse
 	// GetPublishedEvents() httpresponse.ApiResponse
 	// GetCompletedEvents() httpresponse.ApiResponse
 }
