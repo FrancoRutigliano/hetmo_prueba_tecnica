@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS events (
     title VARCHAR(100) NOT NULL,
     short_description VARCHAR(255),
     long_description TEXT,
-    date TIMESTAMP NOT NULL,
+    date BIGINT NOT NULL,
     organizer UUID REFERENCES users(id),
     location VARCHAR(100),
     is_published BOOLEAN DEFAULT FALSE,

@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 )
 
-func (e *Events) CreateEvent(event eventsDto.EventCreateDTO, userId string) httpresponse.ApiResponse {
+func (e *Events) CreateEvent(event eventsDto.EventCreateDTORequest, userId string, unixTime int64) httpresponse.ApiResponse {
 
 	eventId := uuid.New().String()
 
@@ -18,7 +18,7 @@ func (e *Events) CreateEvent(event eventsDto.EventCreateDTO, userId string) http
 		Title:            event.Title,
 		ShortDescription: event.ShortDescription,
 		LongDescription:  event.ShortDescription,
-		Date:             event.Date,
+		Date:             unixTime,
 		Organizer:        userId,
 		Location:         event.Location,
 		IsPublished:      false,
