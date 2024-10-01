@@ -21,30 +21,16 @@ type GetEventsRequest struct {
 	Date        time.Time
 }
 
-// EventUpdateDTO es el DTO que se utiliza para actualizar un evento existente.
-type EventUpdateDTO struct {
-	Title            string    `json:"title,omitempty" validate:"max=100"`
-	ShortDescription string    `json:"short_description,omitempty" validate:"max=255"`
-	LongDescription  string    `json:"long_description,omitempty"`
-	Date             time.Time `json:"date,omitempty"`
-	Organizer        string    `json:"organizer"`
-	Location         string    `json:"location,omitempty" validate:"max=100"`
-	IsPublished      bool      `json:"is_published,omitempty"`
-	UpdatedAt        time.Time `json:"updated_at"`
-}
-
 // EventResponseDTO es el DTO que se utiliza para devolver la información de un evento específico.
 type EventResponseDTO struct {
-	ID               string    `json:"id"`                // ID único del evento.
-	Title            string    `json:"title"`             // Título del evento.
-	ShortDescription string    `json:"short_description"` // Descripción corta del evento.
-	LongDescription  string    `json:"long_description"`  // Descripción larga del evento.
-	Date             time.Time `json:"date"`              // Fecha y hora del evento.
-	Organizer        string    `json:"organizer"`         // ID del organizador.
-	Location         string    `json:"location"`          // Ubicación del evento.
-	IsPublished      bool      `json:"is_published"`      // Indica si el evento está publicado o en borrador.
-	CreatedAt        time.Time `json:"created_at"`        // Fecha de creación del evento.
-	UpdatedAt        time.Time `json:"updated_at"`        // Fecha de última actualización.
+	Title            string    `db:"title" json:"title,omitempty" validate:"max=100"`
+	ShortDescription string    `db:"short_description" json:"short_description,omitempty" validate:"max=255"`
+	LongDescription  string    `db:"long_description" json:"long_description,omitempty"`
+	Date             time.Time `db:"date" json:"date,omitempty"`
+	Organizer        string    `db:"organizer" json:"organizer"`
+	Location         string    `db:"location" json:"location,omitempty" validate:"max=100"`
+	IsPublished      bool      `db:"is_published" json:"is_published,omitempty"`
+	UpdatedAt        time.Time `db:"updated_at" json:"updated_at"`
 }
 
 // EventListDTO es el DTO que se utiliza para listar eventos, incluye información básica.
