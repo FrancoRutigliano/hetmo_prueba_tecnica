@@ -51,7 +51,8 @@ Todas las variables sensibles como contraseñas y configuraciones de base de dat
     ROUTE_MIGRATE="file://cmd/migrate/migrations"
     CONNECTION="postgres://admin:1234@container_db/mydb?sslmode=disable"
     SECRET_JWT="adminHetmo"
-    JWT_EXP="604800"```
+    JWT_EXP="604800"
+     ```
 3. Levantá contenedores y construí las imagenes:
 ```bash
    docker-compose up -d --build
