@@ -19,5 +19,5 @@ func (u *UserEvents) CreateUserEvents(userId, eventId string) httpresponse.ApiRe
 	if err != nil {
 		return *httpresponse.NewApiError(http.StatusInternalServerError, err.Error(), nil)
 	}
-	return *httpresponse.NewApiError(http.StatusCreated, "create", nil)
+	return *httpresponse.NewApiError(http.StatusCreated, "successfully registered user", nil)
 }

@@ -12,5 +12,5 @@ func (u *UserEvents) GetUserEvents(userId, eventId string) httpresponse.ApiRespo
 		return *httpresponse.NewApiError(http.StatusInternalServerError, err.Error(), nil)
 	}
 
-	return *httpresponse.NewApiError(http.StatusOK, "get", data)
+	return *httpresponse.NewApiError(http.StatusOK, "active events for this user", data)
 }
