@@ -12,6 +12,6 @@ type Repository interface {
 	GetEventById(string, *sqlx.DB) (eventsDto.EventListDTO, error) // dto única devolución
 	UpdateEvent(string, eventsDto.EventResponseDTOUpdate, *sqlx.DB) (eventsDto.EventListDTOUpdate, error)
 	DeleteEvent(string, *sqlx.DB) error
-	GetPublishedEvents(string, *sqlx.DB) ([]eventsDto.EventListDTO, error) //dto []arreglo
+	GetDraftEvents(string, *sqlx.DB) ([]eventsDto.EventListDTO, error)     //dto []arreglo
 	GetCompletedEvents(string, *sqlx.DB) ([]eventsDto.EventListDTO, error) //dto []
 }

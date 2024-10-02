@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func (e *Events) GetPublishedEvents(title string) httpresponse.ApiResponse {
-	data, err := e.EventsRepository.Impl.GetPublishedEvents(title, e.Db)
+func (e *Events) GetDraftEvents(title string) httpresponse.ApiResponse {
+	data, err := e.EventsRepository.Impl.GetDraftEvents(title, e.Db)
 	if err != nil {
 		return *httpresponse.NewApiError(http.StatusInternalServerError, err.Error(), nil)
 	}
