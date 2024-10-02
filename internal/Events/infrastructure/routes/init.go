@@ -20,6 +20,6 @@ func Init(r fiber.Router) {
 	AdminRoutes := r.Group("/events/admin", middleware.AdminMiddleware)
 	AdminRoutes.Post("/new", controller.CreateEvent)
 	AdminRoutes.Patch("/edit/", controller.UpdateEvent)
-	AdminRoutes.Delete("/delete/:id", controller.DeleteEvent)
+	AdminRoutes.Delete("/delete/", controller.DeleteEvent)
 
 }
