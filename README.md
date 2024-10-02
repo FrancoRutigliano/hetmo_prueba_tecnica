@@ -37,8 +37,8 @@ Todas las variables sensibles como contraseñas y configuraciones de base de dat
 
 1. Clonar el repositorio:
    ```bash
-   git clone <url-del-repo>
-   cd <nombre-del-repo>
+   git clone https://github.com/FrancoRutigliano/hetmo_prueba_tecnica
+   cd hetmo_prueba_tecnica
    ```
 
 2. Setear variables de entorno **.env**:
