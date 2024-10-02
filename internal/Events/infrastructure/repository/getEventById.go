@@ -12,7 +12,7 @@ func (e *EventsImpl) GetEventById(id string, db *sqlx.DB) (eventsDto.EventListDT
 	SELECT 
 		e.title, 
 		e.short_description, 
-		e.date,
+		to_timestamp(e.date) AS date,
 		u.name AS organizer, 
 		e.location, 
 		e.is_published 

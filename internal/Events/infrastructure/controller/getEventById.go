@@ -7,7 +7,7 @@ import (
 )
 
 func (e *Events) GetEventById(c *fiber.Ctx) error {
-	id := c.Params("id")
+	id := c.Query("id")
 	if id == "" {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": "user id required", "details": "false"})
 	}

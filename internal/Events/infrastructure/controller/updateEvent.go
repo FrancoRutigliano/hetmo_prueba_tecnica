@@ -9,7 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (e *Events) UpdateEvent(c *fiber.Ctx) error {
+func (e *Events) UpdateEvent(c *fiber.Ctx) error { // arreglar que esta sobreescribiendo
 	var payload eventsDto.EventResponseDTO
 	id := c.Params("id")
 	if id == "" {
@@ -26,7 +26,12 @@ func (e *Events) UpdateEvent(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": err.Error(), "details": "false"})
 	}
 
-	response = e.handler.EventsCase.UpdateEvent(userId, id, payload)
+	unixTime, err := utils.ParseDateToUnix(payload.Date)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": err.Error(), "details": "false"})
+	}
+
+	response = e.handler.EventsCase.UpdateEvent(userId, id, payload, unixTime)
 	if response.StatusCode != http.StatusOK {
 		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
 	}

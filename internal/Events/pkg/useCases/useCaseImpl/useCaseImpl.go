@@ -9,13 +9,13 @@ import (
 )
 
 type IEventsUseCase interface {
-	CreateEvent(eventsDto.EventCreateDTO, string) httpresponse.ApiResponse
+	CreateEvent(eventsDto.EventCreateDTORequest, string, int64) httpresponse.ApiResponse
 	GetEvents(eventsDto.GetEventsRequest) httpresponse.ApiResponse
 	GetEventByID(string) httpresponse.ApiResponse
-	UpdateEvent(string, string, eventsDto.EventResponseDTO) httpresponse.ApiResponse // dto
+	UpdateEvent(string, string, eventsDto.EventResponseDTO, int64) httpresponse.ApiResponse // dto
 	DeleteEvent(string) httpresponse.ApiResponse
-	// GetPublishedEvents() httpresponse.ApiResponse
-	// GetCompletedEvents() httpresponse.ApiResponse
+	GetPublishedEvents(string) httpresponse.ApiResponse
+	GetCompletedEvents(string) httpresponse.ApiResponse
 }
 
 type Events struct {

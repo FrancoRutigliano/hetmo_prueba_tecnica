@@ -10,7 +10,7 @@ import (
 )
 
 func (e *Events) CreateEvent(c *fiber.Ctx) error {
-	var payload eventsDto.EventCreateDTO
+	var payload eventsDto.EventCreateDTORequest
 
 	userId, err := authJwt.GetID(c)
 	if err != nil {
@@ -21,7 +21,14 @@ func (e *Events) CreateEvent(c *fiber.Ctx) error {
 	if response.StatusCode != 0 {
 		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
 	}
-	response = e.handler.EventsCase.CreateEvent(payload, userId)
+
+	// convertir date a unix
+	unixTime, err := utils.ParseDateToUnix(payload.Date)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": err.Error(), "details": "false"})
+	}
+
+	response = e.handler.EventsCase.CreateEvent(payload, userId, unixTime)
 	if response.StatusCode != http.StatusOK {
 		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
 	}

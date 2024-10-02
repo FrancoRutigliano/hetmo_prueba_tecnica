@@ -7,29 +7,27 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func (e *EventsImpl) UpdateEvent(eventId string, updatedEvent eventsDto.EventResponseDTO, db *sqlx.DB) (eventsDto.EventResponseDTO, error) {
+func (e *EventsImpl) UpdateEvent(eventId string, updatedEvent eventsDto.EventResponseDTOUpdate, db *sqlx.DB) (eventsDto.EventListDTO, error) {
 	// Consulta para actualizar el evento
 	updateQuery := `
 		UPDATE "public".events 
 		SET 
 			title = $1, 
 			short_description = $2, 
-			long_description = $3, 
-			date = $4, 
-			organizer = $5, 
-			location = $6, 
-			is_published = $7, 
+			date = $3, 
+			organizer = $4, 
+			location = $5, 
+			is_published = $6, 
 			updated_at = NOW()
 		WHERE 
-			id = $8
-		RETURNING title, short_description, long_description, date, organizer, location, is_published, updated_at
+			id = $7
+		RETURNING title, short_description, date, organizer, location, is_published
 	`
 
-	var modifiedEvent eventsDto.EventResponseDTO
+	var modifiedEvent eventsDto.EventListDTO
 	err := db.Get(&modifiedEvent, updateQuery,
 		updatedEvent.Title,
 		updatedEvent.ShortDescription,
-		updatedEvent.LongDescription,
 		updatedEvent.Date,
 		updatedEvent.Organizer,
 		updatedEvent.Location,
@@ -38,7 +36,7 @@ func (e *EventsImpl) UpdateEvent(eventId string, updatedEvent eventsDto.EventRes
 	)
 
 	if err != nil {
-		return eventsDto.EventResponseDTO{}, fmt.Errorf("error updating the event: %s", err.Error())
+		return eventsDto.EventListDTO{}, fmt.Errorf("error updating the event: %s", err.Error())
 	}
 
 	return modifiedEvent, nil
