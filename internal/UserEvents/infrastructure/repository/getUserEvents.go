@@ -1,7 +1,11 @@
 package infraUserEventsRepository
 
-import "github.com/jmoiron/sqlx"
+import (
+	userEventsDto "hetmo_prueba_tecnica/internal/UserEvents/pkg/domain/dto"
 
-func (u *UserEventsImpl) GetUserEvent(db *sqlx.DB) error {
-	return nil
+	"github.com/jmoiron/sqlx"
+)
+
+func (u *UserEventsImpl) GetUserEvent(userId, eventId string, db *sqlx.DB) ([]userEventsDto.UserEventsListDto, error) {
+	return []userEventsDto.UserEventsListDto{}, nil
 }

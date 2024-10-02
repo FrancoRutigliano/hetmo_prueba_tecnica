@@ -27,8 +27,9 @@ type EventCreateDTORequest struct {
 }
 
 type GetEventsRequest struct {
+	Title       string
 	IsPublished bool
-	Date        time.Time
+	Date        int64
 }
 
 // EventResponseDTO es el DTO que se utiliza para devolver la información de un evento específico.

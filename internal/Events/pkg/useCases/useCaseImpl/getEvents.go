@@ -7,7 +7,7 @@ import (
 )
 
 func (e *Events) GetEvents(dto eventsDto.GetEventsRequest) httpresponse.ApiResponse {
-	data, err := e.EventsRepository.Impl.GetAllEvents(&dto.IsPublished, &dto.Date, e.Db)
+	data, err := e.EventsRepository.Impl.GetAllEvents(dto.Title, dto.IsPublished, dto.Date, e.Db)
 	if err != nil {
 		return *httpresponse.NewApiError(http.StatusInternalServerError, err.Error(), nil)
 	}

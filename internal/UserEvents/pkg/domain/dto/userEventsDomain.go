@@ -1,4 +1,4 @@
 package userEventsDto
 
-type UserEventsCreateDto struct {
+type UserEventsListDto struct {
 }

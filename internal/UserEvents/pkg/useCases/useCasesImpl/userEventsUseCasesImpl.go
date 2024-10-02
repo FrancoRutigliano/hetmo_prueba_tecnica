@@ -9,8 +9,8 @@ import (
 
 type IUserEventsUseCase interface {
 	CreateUserEvents(string, string) httpresponse.ApiResponse
-	GetUserEvents() httpresponse.ApiResponse
-	DeleteUserEvents() httpresponse.ApiResponse
+	GetUserEvents(string, string) httpresponse.ApiResponse
+	DeleteUserEvents(string, string) httpresponse.ApiResponse
 }
 
 type UserEvents struct {

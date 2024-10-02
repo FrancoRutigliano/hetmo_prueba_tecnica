@@ -3,26 +3,20 @@ package eventsController
 import (
 	eventsDto "hetmo_prueba_tecnica/internal/Events/pkg/domain/dto"
 	"net/http"
-	"strings"
-	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func (e *Events) GetEvents(c *fiber.Ctx) error {
 	// query param state and date
-	isPublishedStr := c.Query("is_pusblished", "")
-	var isPublished bool
-	isPublished = strings.EqualFold(isPublishedStr, "true")
-	dateStr := c.Query("date", "")
-	date, err := time.Parse(time.RFC3339, dateStr) // Asegúrate de que el formato sea correcto
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"message": "Invalid date format"})
-	}
+	title := c.Query("title", "")
+	isPublished := c.QueryBool("is_pusblished", true)
+	dateStr := c.QueryInt("date", 0)
 
 	var dto = eventsDto.GetEventsRequest{
+		Title:       title,
 		IsPublished: isPublished,
-		Date:        date,
+		Date:        int64(dateStr),
 	}
 
 	response := e.handler.EventsCase.GetEvents(dto)
