@@ -10,7 +10,7 @@ import (
 
 type IEventsUseCase interface {
 	CreateEvent(eventsDto.EventCreateDTORequest, string, int64) httpresponse.ApiResponse
-	GetEvents(eventsDto.GetEventsRequest) httpresponse.ApiResponse
+	GetEvents() httpresponse.ApiResponse
 	GetEventByID(string) httpresponse.ApiResponse
 	UpdateEvent(string, string, eventsDto.EventResponseDTO) httpresponse.ApiResponse // dto
 	DeleteEvent(string) httpresponse.ApiResponse
