@@ -11,7 +11,7 @@ import (
 
 func (e *Events) UpdateEvent(c *fiber.Ctx) error { // arreglar que esta sobreescribiendo
 	var payload eventsDto.EventResponseDTO
-	id := c.Params("id")
+	id := c.Query("id", "")
 	if id == "" {
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": "user id required", "details": "false"})
 	}
@@ -26,12 +26,7 @@ func (e *Events) UpdateEvent(c *fiber.Ctx) error { // arreglar que esta sobreesc
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": err.Error(), "details": "false"})
 	}
 
-	unixTime, err := utils.ParseDateToUnix(payload.Date)
-	if err != nil {
-		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"message": err.Error(), "details": "false"})
-	}
-
-	response = e.handler.EventsCase.UpdateEvent(userId, id, payload, unixTime)
+	response = e.handler.EventsCase.UpdateEvent(userId, id, payload)
 	if response.StatusCode != http.StatusOK {
 		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
 	}

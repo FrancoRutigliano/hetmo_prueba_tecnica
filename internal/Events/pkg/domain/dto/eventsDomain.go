@@ -27,8 +27,9 @@ type EventCreateDTORequest struct {
 }
 
 type GetEventsRequest struct {
+	Title       string
 	IsPublished bool
-	Date        time.Time
+	Date        int64
 }
 
 // EventResponseDTO es el DTO que se utiliza para devolver la información de un evento específico.
@@ -62,4 +63,13 @@ type EventListDTO struct {
 	Organizer        string    `db:"organizer" json:"organizer"`
 	Location         string    `db:"location" json:"location"`
 	IsPublished      bool      `db:"is_published" json:"is_published"`
+}
+
+type EventListDTOUpdate struct {
+	Title            string `db:"title" json:"title"`
+	ShortDescription string `db:"short_description" json:"short_description"`
+	Date             int64  `db:"date" json:"date"`
+	Organizer        string `db:"organizer" json:"organizer"`
+	Location         string `db:"location" json:"location"`
+	IsPublished      bool   `db:"is_published" json:"is_published"`
 }

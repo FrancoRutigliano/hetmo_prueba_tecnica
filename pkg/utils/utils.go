@@ -14,7 +14,7 @@ var Validate = validator.New()
 func ValidPayload(c *fiber.Ctx, payload interface{}) httpresponse.ApiResponse {
 
 	if err := c.BodyParser(payload); err != nil {
-		return *httpresponse.NewApiError(http.StatusBadRequest, "invalid payload request", nil)
+		return *httpresponse.NewApiError(http.StatusBadRequest, err.Error(), nil)
 	}
 
 	if err := Validate.Struct(payload); err != nil {
