@@ -6,10 +6,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (e *Events) GetPublishedEvents(c *fiber.Ctx) error {
+func (e *Events) GetDraftEvents(c *fiber.Ctx) error {
 	title := c.Query("title", "")
 
-	response := e.handler.EventsCase.GetPublishedEvents(title)
+	response := e.handler.EventsCase.GetDraftEvents(title)
 	if response.StatusCode != http.StatusOK {
 		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
 	}

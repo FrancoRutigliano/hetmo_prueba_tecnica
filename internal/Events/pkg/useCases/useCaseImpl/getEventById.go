@@ -9,7 +9,7 @@ import (
 func (e *Events) GetEventByID(id string) httpresponse.ApiResponse {
 	data, err := e.EventsRepository.Impl.GetEventById(id, e.Db)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusInternalServerError, err.Error(), nil)
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong", nil)
 	}
 	msg := fmt.Sprintf("id: %s event founded!", id)
 	return *httpresponse.NewApiError(http.StatusOK, msg, data)

@@ -6,7 +6,7 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func (e *EventsImpl) GetPublishedEvents(title string, db *sqlx.DB) ([]eventsDto.EventListDTO, error) {
+func (e *EventsImpl) GetDraftEvents(title string, db *sqlx.DB) ([]eventsDto.EventListDTO, error) {
 	var args []interface{}
 	var query string
 
@@ -24,8 +24,7 @@ func (e *EventsImpl) GetPublishedEvents(title string, db *sqlx.DB) ([]eventsDto.
 	LEFT JOIN
 		users AS u ON e.organizer = u.id
 	WHERE
-		e.is_published = TRUE
-		AND e.date > EXTRACT(EPOCH FROM NOW())::BIGINT
+		e.is_published = false
 	`
 
 	if title != "" {
