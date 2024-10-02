@@ -14,7 +14,7 @@ type IEventsUseCase interface {
 	GetEventByID(string) httpresponse.ApiResponse
 	UpdateEvent(string, string, eventsDto.EventResponseDTO, int64) httpresponse.ApiResponse // dto
 	DeleteEvent(string) httpresponse.ApiResponse
-	// GetPublishedEvents() httpresponse.ApiResponse
+	GetPublishedEvents(string) httpresponse.ApiResponse
 	// GetCompletedEvents() httpresponse.ApiResponse
 }
 
