@@ -1,15 +1,14 @@
-FROM golang:1.23-alpine
-
-WORKDIR /app
-
-RUN go install github.com/air-verse/air@latest
-
-COPY go.* ./
-
+FROM golang:latest AS builder
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64
+WORKDIR /go/src
+COPY go.mod .
 RUN go mod download
-
 COPY . .
+RUN go build ./cmd/main.go
 
-EXPOSE 8080
-
-CMD ["air", "-c", ".air.toml"]
+FROM alpine
+COPY --from=builder /go/src .
+ENTRYPOINT  ["./main"]
