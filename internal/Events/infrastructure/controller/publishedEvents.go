@@ -13,5 +13,5 @@ func (e *Events) GetPublishedEvents(c *fiber.Ctx) error {
 	if response.StatusCode != http.StatusOK {
 		return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "false"})
 	}
-	return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "details": "true"})
+	return c.Status(response.StatusCode).JSON(fiber.Map{"message": response.Msg, "data": response.Data, "details": "true"})
 }

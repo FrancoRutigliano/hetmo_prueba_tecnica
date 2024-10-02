@@ -25,11 +25,11 @@ func (e *EventsImpl) GetPublishedEvents(title string, db *sqlx.DB) ([]eventsDto.
 		users AS u ON e.organizer = u.id
 	WHERE
 		e.is_published = TRUE
-		AND e.date > EXTRACT(EPOCH FROM NOW())::BIGINT;
+		AND e.date > EXTRACT(EPOCH FROM NOW())::BIGINT
 	`
 
 	if title != "" {
-		query += ` AND e.title ILIKE '%' || $1 || '%'`
+		query += ` AND e.title ILIKE '%' || $1 || '%';`
 		args = append(args, title) // Agrega el título a los argumentos
 	}
 
