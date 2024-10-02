@@ -28,7 +28,7 @@ func (e *Events) CreateEvent(event eventsDto.EventCreateDTORequest, userId strin
 
 	err := e.EventsRepository.Impl.CreateEvent(dto, e.Db)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusInternalServerError, err.Error(), nil)
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong", nil)
 	}
 	return *httpresponse.NewApiError(http.StatusOK, "event created succesfully", dto)
 }

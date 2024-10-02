@@ -38,7 +38,7 @@ func (e *Events) UpdateEvent(userId, eventId string, payload eventsDto.EventResp
 
 	data, err := e.EventsRepository.Impl.UpdateEvent(eventId, dto, e.Db)
 	if err != nil {
-		return *httpresponse.NewApiError(http.StatusInternalServerError, err.Error(), nil)
+		return *httpresponse.NewApiError(http.StatusInternalServerError, "oops somenthing went wrong", nil)
 	}
 	return *httpresponse.NewApiError(http.StatusOK, "event edit succesfully", data)
 }
