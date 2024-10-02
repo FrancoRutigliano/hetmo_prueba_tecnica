@@ -15,7 +15,7 @@ func (e *EventsImpl) GetPublishedEvents(title string, db *sqlx.DB) ([]eventsDto.
 	SELECT
 		e.title,
 		e.short_description,
-		e.date,
+		to_timestamp(e.date) AS date,
 		u.name AS organizer,
 		e.location,
 		e.is_published

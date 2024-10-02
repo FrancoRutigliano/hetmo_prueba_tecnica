@@ -15,7 +15,7 @@ type IEventsUseCase interface {
 	UpdateEvent(string, string, eventsDto.EventResponseDTO, int64) httpresponse.ApiResponse // dto
 	DeleteEvent(string) httpresponse.ApiResponse
 	GetPublishedEvents(string) httpresponse.ApiResponse
-	// GetCompletedEvents() httpresponse.ApiResponse
+	GetCompletedEvents(string) httpresponse.ApiResponse
 }
 
 type Events struct {

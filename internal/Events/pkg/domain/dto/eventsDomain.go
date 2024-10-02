@@ -56,10 +56,10 @@ type EventResponseDTOUpdate struct {
 
 // EventListDTO es el DTO que se utiliza para listar eventos, incluye información básica.
 type EventListDTO struct {
-	Title            string `db:"title" json:"title"`
-	ShortDescription string `db:"short_description" json:"short_description"`
-	Date             int64  `db:"date" json:"date"`
-	Organizer        string `db:"organizer" json:"organizer"`
-	Location         string `db:"location" json:"location"`
-	IsPublished      bool   `db:"is_published" json:"is_published"`
+	Title            string    `db:"title" json:"title"`
+	ShortDescription string    `db:"short_description" json:"short_description"`
+	Date             time.Time `db:"date" json:"date"`
+	Organizer        string    `db:"organizer" json:"organizer"`
+	Location         string    `db:"location" json:"location"`
+	IsPublished      bool      `db:"is_published" json:"is_published"`
 }
